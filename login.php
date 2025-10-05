@@ -1,7 +1,9 @@
 <?php
+session_start();
 include 'config.php';
 
 $error = '';
+$use_hashed_passwords = false; // set true if your DB has bcrypt hashed passwords
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
@@ -15,7 +17,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($result->num_rows === 1) {
         $user = $result->fetch_assoc();
-        if (password_verify($password, $user['password'])) {
+
+        if ($use_hashed_passwords) {
+            // bcrypt password check
+            if (password_verify($password, $user['password'])) {
+                $login_success = true;
+            } else {
+                $login_success = false;
+            }
+        } else {
+            // plain text password check
+            if ($password === $user['password']) {
+                $login_success = true;
+            } else {
+                $login_success = false;
+            }
+        }
+
+        if ($login_success) {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['role'] = $user['role'];
             $_SESSION['name'] = $user['name'];
@@ -29,6 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         } else {
             $error = "Incorrect password!";
         }
+
     } else {
         $error = "User not found!";
     }
