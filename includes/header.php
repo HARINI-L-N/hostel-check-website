@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="/hostel-check/css/reset.css">
+<link rel="stylesheet" href="/hostel-check/css/style.css">
+<link rel="stylesheet" href="/hostel-check/css/animations.css">
+
     <meta charset="UTF-8">
     <title>Hostel Management</title>
     <link rel="stylesheet" href="/hostel-check/css/style.css">
