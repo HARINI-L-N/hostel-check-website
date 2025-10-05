@@ -1,6 +1,5 @@
-<hr>
 <footer>
-    <p>&copy; 2025 Hostel Management System</p>
+    <p>&copy; <?php echo date("Y"); ?> Hostel Check. All rights reserved.</p>
 </footer>
 </body>
 </html>
